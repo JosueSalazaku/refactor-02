@@ -3,8 +3,6 @@ console.log("script is running");
 // import data from different files
 import API from "./config.js";
 
-console.log(API);
-
 // Getting my button element
 const button = document.querySelector("#submit-search");
 // Getting my input field element
@@ -25,14 +23,28 @@ const weekdays = [
 // In case I want to switch to a different format:
 const weekdays2 = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+async function getWeatherData() {
+  const url =
+    "http://api.weatherapi.com/v1/forecast.json?key=" +
+    API.key +
+    "&q=" +
+    theNameOfTheCity +
+    "&days=7&aqi=no&alerts=no";
+
+  const response = await fetch(url);
+  const data = await response.json();
+}
+
+function appWeather() {}
+
 // add eventlistener to input field
 inputField.addEventListener("keyup", function (event) {
   // get the current value after the user submitted the city name
   const theNameOfTheCity = document.querySelector("#cityName").value;
   // Check if weekdays are correctly displayed
-  console.log(weekdays);
+  //   console.log(weekdays);
   // check if API is correctly imported
-  console.log(API);
+  //   console.log(API);
   // see if event listener is triggered
   console.log("Enter submission");
 
