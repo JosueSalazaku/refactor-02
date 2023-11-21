@@ -36,6 +36,12 @@ async function getWeatherData(theNameOfTheCity) {
   return data;
 }
 
+function clearContainer() {
+  while (container.lastChild) {
+    container.removeChild(container.lastChild);
+  }
+}
+
 function createWeatherCard(dayData, isFirstCard) {
   const card = document.createElement("div");
   card.classList.add("card");
@@ -57,7 +63,7 @@ function createWeatherCard(dayData, isFirstCard) {
   card.appendChild(contentBox);
 
   const dayOfTheWeekIndex = (new Date().getDay() + isFirstCard) % 7;
-  const dayOfTheWeek = weekdays[dayOfTheWeekIndex];
+  const dayOfTheWeek = weekdays2[dayOfTheWeekIndex];
 
   const cardHeader = document.createElement("h2");
   cardHeader.innerHTML = dayOfTheWeek;
@@ -111,7 +117,7 @@ async function appWeather() {
 
     if (theNameOfTheCity) {
       // Clear previous content in the container
-      container.innerHTML = "";
+      clearContainer();
 
       // Display the city and country
       const locationParagraph = document.createElement("p");
@@ -119,7 +125,7 @@ async function appWeather() {
       cityNameContainer.appendChild(locationParagraph);
 
       // Create cards for each day (excluding the current day)
-      for (let i = 0; i < 7; i++) {
+      for (let i = 0; i < 6; i++) {
         createWeatherCard(getData.forecast.forecastday[i], i === 0);
       }
     }
@@ -140,6 +146,8 @@ inputField.addEventListener("keyup", function (event) {
 
 // Event listener for click event on the button
 button.addEventListener("click", appWeather);
+{
+}
 
 // inputField.addEventListener("keyup", function (event) {
 //   // get the current value after the user submitted the city name
