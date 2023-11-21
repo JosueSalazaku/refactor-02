@@ -1,9 +1,5 @@
-console.log("Script is running");
-
-// Import data from different files
 import API from "./config.js";
 
-// Getting elements
 const button = document.querySelector("#submit-search");
 const inputField = document.querySelector("#cityName");
 const cityNameContainer = document.querySelector(".city-info");
@@ -21,14 +17,7 @@ const weekdays = [
 
 const weekdays2 = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-console.log(
-  "Chosen array:",
-  window.innerWidth < 600 ? "weekdays2" : "weekdays"
-);
-
-function getWeekdayArray() {
-  return window.innerWidth < 600 ? weekdays2 : weekdays;
-}
+console.log("Inside appWeather function");
 
 async function getWeatherData(theNameOfTheCity) {
   const url =
@@ -41,12 +30,6 @@ async function getWeatherData(theNameOfTheCity) {
   const response = await fetch(url);
   const data = await response.json();
   return data;
-}
-
-function clearContainer() {
-  while (container.lastChild) {
-    container.removeChild(container.lastChild);
-  }
 }
 
 function createWeatherCard(dayData, isFirstCard) {
@@ -69,9 +52,8 @@ function createWeatherCard(dayData, isFirstCard) {
   contentBox.classList.add("contentBx");
   card.appendChild(contentBox);
 
-  const dayOfTheWeekIndex = (new Date().getDay() + isFirstCard) % 7;
-  const dayOfTheWeekArray = getWeekdayArray();
-  const dayOfTheWeek = dayOfTheWeekArray[dayOfTheWeekIndex];
+  const dayOfTheWeek =
+    weekdays2[(new Date(dayData.date).getDay() + isFirstCard) % 7];
 
   const cardHeader = document.createElement("h2");
   cardHeader.innerHTML = dayOfTheWeek;
@@ -124,33 +106,27 @@ async function appWeather() {
     console.log("Get all the data", getData);
 
     if (theNameOfTheCity) {
-      // Clear previous content in the container
-      clearContainer();
+      container.innerHTML = "";
+      cityNameContainer.innerHTML = "";
 
-      // Display the city and country
       const locationParagraph = document.createElement("p");
       locationParagraph.textContent = `${getData.location.name}, ${getData.location.country}`;
       cityNameContainer.appendChild(locationParagraph);
 
-      // Create cards for each day (excluding the current day)
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 7; i++) {
         createWeatherCard(getData.forecast.forecastday[i], i === 0);
       }
     }
   } catch (error) {
-    alert("Hey are you sure you are not holding up your map upside down?");
-    console.error("Error fetching weather data bro:", error);
-    // Handle the error, e.g., show an error message to the user.
+    alert("Something is wrong read your console errors bro");
+    console.error("Error fetching weather data :", error);
   }
 }
 
-// Event listener for keyup event on the input field
 inputField.addEventListener("keyup", function (event) {
-  // Check if Enter key is pressed
   if (event.code === "Enter") {
     appWeather();
   }
 });
 
-// Event listener for click event on the button
 button.addEventListener("click", appWeather);
