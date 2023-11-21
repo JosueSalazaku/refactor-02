@@ -93,7 +93,7 @@ function createWeatherCard(dayData, isFirstCard) {
   container.appendChild(card);
 }
 
-async function appWeather() {
+const appWeather = async () => {
   const theNameOfTheCity = inputField.value.trim();
 
   try {
@@ -116,7 +116,7 @@ async function appWeather() {
     alert("Something is wrong read your console errors bro");
     console.error("Error fetching weather data :", error);
   }
-}
+};
 
 inputField.addEventListener("keyup", function (event) {
   if (event.code === "Enter") {
