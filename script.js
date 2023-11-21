@@ -15,8 +15,6 @@ const weekdays = [
   "Saturday",
 ];
 
-const weekdays2 = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
 async function getWeatherData(theNameOfTheCity) {
   const url =
     "http://api.weatherapi.com/v1/forecast.json?key=" +
@@ -51,7 +49,7 @@ function createWeatherCard(dayData, isFirstCard) {
   card.appendChild(contentBox);
 
   const dayOfTheWeek =
-    weekdays2[(new Date(dayData.date).getDay() + isFirstCard) % 7];
+    weekdays[(new Date(dayData.date).getDay() + isFirstCard) % 7];
 
   const cardHeader = document.createElement("h2");
   cardHeader.innerHTML = dayOfTheWeek;
