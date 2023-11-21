@@ -19,6 +19,8 @@ const weekdays = [
   "Saturday",
 ];
 
+console.log(weekdays);
+
 const weekdays2 = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 async function getWeatherData(theNameOfTheCity) {
@@ -54,7 +56,9 @@ function createWeatherCard(dayData, isFirstCard) {
   contentBox.classList.add("contentBx");
   card.appendChild(contentBox);
 
-  const dayOfTheWeek = weekdays[(new Date().getDay() + isFirstCard) % 7];
+  const dayOfTheWeekIndex = (new Date().getDay() + isFirstCard) % 7;
+  const dayOfTheWeek = weekdays[dayOfTheWeekIndex];
+
   const cardHeader = document.createElement("h2");
   cardHeader.innerHTML = dayOfTheWeek;
   contentBox.appendChild(cardHeader);
@@ -115,8 +119,8 @@ async function appWeather() {
       cityNameContainer.appendChild(locationParagraph);
 
       // Create cards for each day (excluding the current day)
-      for (let i = 1; i < 7; i++) {
-        createWeatherCard(getData.forecast.forecastday[i]);
+      for (let i = 0; i < 7; i++) {
+        createWeatherCard(getData.forecast.forecastday[i], i === 0);
       }
     }
   } catch (error) {
