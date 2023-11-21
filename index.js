@@ -1,10 +1,10 @@
 import API from "./config.js";
+import getWeatherData from "./api.js";
 
 const button = document.querySelector("#submit-search");
 const inputField = document.querySelector("#cityName");
 const cityNameContainer = document.querySelector(".city-info");
 const container = document.querySelector(".container");
-
 const weekdays = [
   "Sunday",
   "Monday",
@@ -14,19 +14,6 @@ const weekdays = [
   "Friday",
   "Saturday",
 ];
-
-async function getWeatherData(theNameOfTheCity) {
-  const url =
-    "http://api.weatherapi.com/v1/forecast.json?key=" +
-    API.key +
-    "&q=" +
-    theNameOfTheCity +
-    "&days=7&aqi=no&alerts=no";
-
-  const response = await fetch(url);
-  const data = await response.json();
-  return data;
-}
 
 function createWeatherCard(dayData, isFirstCard) {
   const card = document.createElement("div");
