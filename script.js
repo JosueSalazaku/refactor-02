@@ -17,8 +17,6 @@ const weekdays = [
 
 const weekdays2 = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-console.log("Inside appWeather function");
-
 async function getWeatherData(theNameOfTheCity) {
   const url =
     "http://api.weatherapi.com/v1/forecast.json?key=" +
@@ -94,7 +92,6 @@ function createWeatherCard(dayData, isFirstCard) {
   maxTemp.innerHTML = `Max: ${dayData.day.maxtemp_c}°C`;
   minMaxTemperatures.appendChild(maxTemp);
 
-  // Append the card to the container
   container.appendChild(card);
 }
 
