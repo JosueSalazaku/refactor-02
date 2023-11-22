@@ -1,10 +1,12 @@
 import API from "./config.js";
 import getWeatherData from "./api.js";
+import { appWeather } from "./app.js";
 
 const button = document.querySelector("#submit-search");
-const inputField = document.querySelector("#cityName");
 const cityNameContainer = document.querySelector(".city-info");
+const inputField = document.querySelector("#cityName");
 const container = document.querySelector(".container");
+
 const weekdays = [
   "Sunday",
   "Monday",
@@ -80,35 +82,37 @@ function createWeatherCard(dayData, isFirstCard) {
   container.appendChild(card);
 }
 
-const appWeather = async () => {
-  const theNameOfTheCity = inputField.value.trim();
+// const appWeather = async () => {
+//   const theNameOfTheCity = inputField.value.trim();
 
-  try {
-    const getData = await getWeatherData(theNameOfTheCity);
-    console.log("Get all the data", getData);
+//   try {
+//     const getData = await getWeatherData(theNameOfTheCity);
+//     console.log("Get all the data", getData);
 
-    if (theNameOfTheCity) {
-      container.innerHTML = "";
-      cityNameContainer.innerHTML = "";
+//     if (theNameOfTheCity) {
+//       container.innerHTML = "";
+//       cityNameContainer.innerHTML = "";
 
-      const locationParagraph = document.createElement("p");
-      locationParagraph.textContent = `${getData.location.name}, ${getData.location.country}`;
-      cityNameContainer.appendChild(locationParagraph);
+//       const locationParagraph = document.createElement("p");
+//       locationParagraph.textContent = `${getData.location.name}, ${getData.location.country}`;
+//       cityNameContainer.appendChild(locationParagraph);
 
-      for (let i = 0; i < 7; i++) {
-        createWeatherCard(getData.forecast.forecastday[i], i === 0);
-      }
-    }
-  } catch (error) {
-    alert("Something is wrong read your console errors bro");
-    console.error("Error fetching weather data :", error);
-  }
-};
+//       for (let i = 0; i < 7; i++) {
+//         createWeatherCard(getData.forecast.forecastday[i], i === 0);
+//       }
+//     }
+//   } catch (error) {
+//     alert("Something is wrong read your console errors bro");
+//     console.error("Error fetching weather data :", error);
+//   }
+// };
 
 inputField.addEventListener("keyup", function (event) {
-  if (event.code === "Enter") {
+  if (event.keyup === "Enter") {
     appWeather();
   }
 });
 
 button.addEventListener("click", appWeather);
+
+export default createWeatherCard;
