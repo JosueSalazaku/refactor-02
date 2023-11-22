@@ -30,4 +30,4 @@ const appWeather = async () => {
   }
 };
 
-export { appWeather };
+export default appWeather;

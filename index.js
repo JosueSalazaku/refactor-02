@@ -1,6 +1,6 @@
 import API from "./config.js";
 import getWeatherData from "./api.js";
-import { appWeather } from "./app.js";
+import appWeather from "./app.js";
 
 const button = document.querySelector("#submit-search");
 const cityNameContainer = document.querySelector(".city-info");
